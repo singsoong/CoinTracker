@@ -1,10 +1,14 @@
 import { useParams } from "react-router";
+import styled from "styled-components";
 
 export default function Coin() {
   const { coinId } = useParams<{ coinId: string }>();
   return (
     <>
-      <h1>{coinId}</h1>
+      <Title>{coinId}</Title>
     </>
   );
 }
+const Title = styled.h1`
+  color: ${(props) => props.theme.accentColor};
+`;

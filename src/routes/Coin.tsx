@@ -82,18 +82,40 @@ export default function Coin() {
       setPriceInfo(priceData);
       setLoading(false);
     })();
-  }, []);
+  }, [coinId]);
 
   return (
     <Container>
       <Header>
-        <Title>{state?.name || "Loading..."}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? "Loading..." : info?.name}
+        </Title>
       </Header>
-      {loading ? (
-        <Loader>Loading...</Loader>
-      ) : (
-        <>{priceInfo?.quotes.USD.price}</>
-      )}
+      <OverviewTab>
+        <OverviewItem>
+          <Item>Rank :</Item>
+          <Item>{info?.rank}</Item>
+        </OverviewItem>
+        <OverviewItem>
+          <Item>Symbol :</Item>
+          <Item>{info?.symbol}</Item>
+        </OverviewItem>
+        <OverviewItem>
+          <Item>Opensource :</Item>
+          <Item>{info?.open_source ? "Yes" : "No"}</Item>
+        </OverviewItem>
+      </OverviewTab>
+      <Description>{info?.description}</Description>
+      <OverviewTab>
+        <OverviewItem>
+          <Item>Total Supply :</Item>
+          <Item>{priceInfo?.total_supply}</Item>
+        </OverviewItem>
+        <OverviewItem>
+          <Item>Max Supply :</Item>
+          <Item>{priceInfo?.max_supply}</Item>
+        </OverviewItem>
+      </OverviewTab>
     </Container>
   );
 }
@@ -118,3 +140,30 @@ const Header = styled.header`
 const Loader = styled.div`
   text-align: center;
 `;
+
+const OverviewTab = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.div`
+  margin: 20px 0px;
+  line-height: 20px;
+`;
+
+const Item = styled.span``;

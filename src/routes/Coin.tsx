@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router";
+import { Outlet, useLocation, useParams } from "react-router";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
@@ -116,6 +116,7 @@ export default function Coin() {
           <Item>{priceInfo?.max_supply}</Item>
         </OverviewItem>
       </OverviewTab>
+      <Outlet />
     </Container>
   );
 }

@@ -1,6 +1,7 @@
-import { Outlet, useLocation, useParams } from "react-router";
+import { Outlet, useLocation, useMatch, useParams } from "react-router";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface ILocation {
   state: {
@@ -69,6 +70,8 @@ export default function Coin() {
   const { state } = useLocation() as ILocation;
   const [info, setInfo] = useState<IInfoData>();
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
 
   useEffect(() => {
     (async () => {
@@ -116,6 +119,15 @@ export default function Coin() {
           <Item>{priceInfo?.max_supply}</Item>
         </OverviewItem>
       </OverviewTab>
+      <Tabs>
+        <Tab isActive={chartMatch !== null}>
+          <Link to={`/${coinId}/chart`}>Chart</Link>
+        </Tab>
+        <Tab isActive={priceMatch !== null}>
+          <Link to={`/${coinId}/price`}>Price</Link>
+        </Tab>
+      </Tabs>
+
       <Outlet />
     </Container>
   );
@@ -168,3 +180,20 @@ const Description = styled.div`
 `;
 
 const Item = styled.span``;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  text-transform: uppercase;
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+`;

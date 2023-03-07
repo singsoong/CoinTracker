@@ -32,11 +32,18 @@ export default function Chart() {
           type="line"
           series={[
             {
-              name: "price($)",
+              name: "Price($)",
               data: data?.map((price) => Number(price.close)) as number[],
             },
           ]}
           options={{
+            fill: {
+              type: "gradient",
+              gradient: {
+                gradientToColors: ["#add4b3"],
+                stops: [0, 100],
+              },
+            },
             colors: ["#44bd32"],
             theme: {
               mode: "dark",

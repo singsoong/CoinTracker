@@ -19,7 +19,7 @@ export default function Coins() {
   return (
     <Container>
       <Header>
-        <Title>Coins</Title>
+        <Title>Coin Tracker</Title>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
@@ -74,6 +74,7 @@ const Coin = styled.li`
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   font-size: 48px;
+  font-weight: bold;
 `;
 
 const Loader = styled.div`

@@ -25,7 +25,7 @@ export default function Coins() {
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0, 100).map((coin) => (
+          {data?.slice(0, 80).map((coin) => (
             <Link key={coin.id} to={`/${coin.id}`} state={{ name: coin.name }}>
               <Coin>
                 <CoinImg

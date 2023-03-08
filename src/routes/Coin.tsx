@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchInfos, fetchPrices } from "../api";
+import { Helmet } from "react-helmet";
 
 interface ILocation {
   state: {
@@ -77,12 +78,20 @@ export default function Coin() {
   );
   const { isLoading: priceLoading, data: priceData } = useQuery<IPriceData>(
     ["price", coinId],
-    () => fetchPrices(coinId!)
+    () => fetchPrices(coinId!),
+    {
+      refetchInterval: 5000,
+    }
   );
 
   const loading = infoLoading || priceLoading;
   return (
     <Container>
+      <Helmet>
+        <title>
+          {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+        </title>
+      </Helmet>
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
@@ -98,8 +107,8 @@ export default function Coin() {
           <Item>{infoData?.symbol}</Item>
         </OverviewItem>
         <OverviewItem>
-          <Item>Opensource :</Item>
-          <Item>{infoData?.open_source ? "Yes" : "No"}</Item>
+          <Item>Price($) :</Item>
+          <Item>{priceData?.quotes.USD.price}</Item>
         </OverviewItem>
       </OverviewTab>
       <Description>{infoData?.description}</Description>

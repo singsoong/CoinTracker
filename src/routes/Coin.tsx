@@ -1,4 +1,10 @@
-import { Outlet, useLocation, useMatch, useParams } from "react-router";
+import {
+  Outlet,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -72,6 +78,8 @@ export default function Coin() {
   const { state } = useLocation() as ILocation;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const navigate = useNavigate();
+
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
     ["info", coinId],
     () => fetchInfos(coinId!)
@@ -92,9 +100,13 @@ export default function Coin() {
         </title>
       </Helmet>
       <Header>
-        <Link to="/">
-          <BackButton>◀</BackButton>
-        </Link>
+        <BackButton
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          ◀
+        </BackButton>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -149,10 +161,11 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Loader = styled.div`
@@ -214,4 +227,6 @@ const BackButton = styled.div`
   border-radius: 15px;
   font-size: 20px;
   cursor: pointer;
+  position: absolute;
+  left: 0px;
 `;

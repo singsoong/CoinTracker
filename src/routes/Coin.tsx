@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchInfos, fetchPrices } from "../api";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 interface ILocation {
   state: {
@@ -83,7 +83,6 @@ export default function Coin() {
       refetchInterval: 5000,
     }
   );
-
   const loading = infoLoading || priceLoading;
   return (
     <Container>
@@ -93,6 +92,9 @@ export default function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Link to="/">
+          <BackButton>◀</BackButton>
+        </Link>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -199,4 +201,17 @@ const Tab = styled.span<{ isActive: boolean }>`
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
+`;
+
+const BackButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: ${(props) => props.theme.textColor};
+  width: 40px;
+  height: 40px;
+  border-radius: 15px;
+  font-size: 20px;
+  cursor: pointer;
 `;

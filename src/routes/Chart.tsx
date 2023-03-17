@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
-import { useOutletContext, useParams } from "react-router";
+import { useOutletContext } from "react-router";
 import { fetchCoinHistory } from "../api";
 import ApexCharts from "react-apexcharts";
+import { useEffect } from "react";
 
 interface ChartProps {
   coinId: string;
@@ -20,9 +21,10 @@ interface IHistorical {
 
 export default function Chart() {
   const { coinId } = useOutletContext<ChartProps>();
-  const { isLoading, data } = useQuery<IHistorical[]>(["ohclv", coinId], () =>
+  const { isLoading, data } = useQuery<IHistorical[]>(["line", coinId], () =>
     fetchCoinHistory(coinId)
   );
+
   return (
     <div>
       {isLoading ? (

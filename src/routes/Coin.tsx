@@ -138,10 +138,10 @@ export default function Coin() {
       </OverviewTab>
       <Tabs>
         <Tab isActive={chartMatch !== null}>
-          <Link to={`/${coinId}/chart`}>Chart</Link>
+          <Link to={`/${coinId}/chart`}>Line</Link>
         </Tab>
         <Tab isActive={priceMatch !== null}>
-          <Link to={`/${coinId}/price`}>Price</Link>
+          <Link to={`/${coinId}/price`}>CandleStick</Link>
         </Tab>
       </Tabs>
 

@@ -173,7 +173,7 @@ const Loader = styled.div`
 `;
 
 const OverviewTab = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.divColor};
   border-radius: 10px;
   padding: 10px 20px;
   display: flex;
@@ -207,7 +207,7 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled.span<{ isActive: boolean }>`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.divColor};
   text-align: center;
   text-transform: uppercase;
   padding: 7px 0px;
@@ -220,7 +220,7 @@ const BackButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.divColor};
   color: ${(props) => props.theme.textColor};
   width: 40px;
   height: 40px;
